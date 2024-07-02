@@ -10,6 +10,7 @@ import (
 
 func TestMain(m *testing.M) {
 	log.Println("Testing github.com/zostay/replacer Version", replacer.Version)
+	m.Run()
 }
 
 func TestReplacer_Replace_Grow(t *testing.T) {
