@@ -1,15 +1,25 @@
 // Package replacer provides a drop-in replacement for Go's built-in
 // strings.Replacer for cases when it is not quite up to the task. For example:
 //
+//	// DO NOT DO THIS: This will give you inconsistent results.
 //	r := strings.NewReplacer(
-//	  "modifiedbyid", "modified_by_id",
-//	  "modifiedby", "modified_by")
+//		"modifiedbyid", "modified_by_id",
+//		"modifiedby", "modified_by")
 //	fmt.Println(r.Replace("modifiedbyid"))
 //	// Output may be: modified_by_id
 //	//            OR: modified_byid
 //
 // By contrast, the replacer type returned by replacer.New will always produce
 // the same output by preferring the longest match.
+//
+// This will give you better results:
+//
+//	// DO THIS! This will always give you the same result.
+//	r := replacer.New(
+//		"modifiedbyid", "modified_by_id",
+//		"modifiedby", "modified_by")
+//	fmt.Println(r.Replace("modifiedbyid"))
+//	// Output will always be: modified_by_id
 package replacer
 
 import _ "embed"

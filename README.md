@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	// DO NOT DO THIS: This will give you inconsistent results.
 	r := strings.NewReplacer(
 	  "modifiedbyid", "modified_by_id",
 	  "modifiedby", "modified_by")
@@ -31,6 +32,7 @@ import (
 )
 
 func main() {
+	// DO THIS! This will always give you the same result.
 	r := replacer.New(
 		"modifiedbyid", "modified_by_id",
 		"modifiedby", "modified_by")
