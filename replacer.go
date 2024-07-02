@@ -69,10 +69,15 @@ func (s *dfaState) match(l int, rs []rune) (int, string) {
 	return 0, ""
 }
 
+// Replacer is a drop-in replacement for Go's built-in strings.Replacer that
+// always produces the same output by preferring the longest match.
 type Replacer struct {
 	dfa *dfaState
 }
 
+// New creates a new Replacer with the given replacements. The replacements
+// are given as pairs of strings. The first string is the string to match and
+// the second string is the replacement.
 func New(replacements ...string) *Replacer {
 	root := &dfaState{}
 	for i := 0; i < len(replacements); i += 2 {
@@ -84,6 +89,8 @@ func New(replacements ...string) *Replacer {
 	return &Replacer{root}
 }
 
+// Replace replaces all instances of the strings to match with the replacement
+// strings in the given string.
 func (r *Replacer) Replace(s string) string {
 	work := []rune(s)
 
