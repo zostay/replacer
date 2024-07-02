@@ -43,6 +43,13 @@ func main() {
 
 This module always selects the longest match.
 
+## TODO
+
+This is not a complete replacement for `strings.Replacement`. The following is
+needed to be a complete replacement:
+
+* Implement `WriteString(w io.Writer, s string) (n int, err error)`
+
 ## Caveat Emptor
 
 This library is a first release. As of this writing, I cooked up and
