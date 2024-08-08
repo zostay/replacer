@@ -85,3 +85,35 @@ func TestReplacer_Replace_Shrink(t *testing.T) {
 		}
 	}
 }
+
+func TestReplacer_Replace_Overlap(t *testing.T) {
+	t.Parallel()
+
+	r := replacer.New(
+		"%%", "%",
+		"%A", "Andrew",
+		"%S", "Sterling",
+	)
+
+	if r == nil {
+		t.Errorf("replacer.New should return an object")
+	}
+
+	testCases := []struct {
+		in  string
+		exp string
+	}{
+		{in: "%%", exp: "%"},
+		{in: "%A", exp: "Andrew"},
+		{in: "%S", exp: "Sterling"},
+		{in: "%%A", exp: "%A"},
+		{in: "%%S", exp: "%S"},
+	}
+
+	for _, tc := range testCases {
+		s := r.Replace(tc.in)
+		if s != tc.exp {
+			t.Errorf("r.Replace(%q): expected %q but got %q", tc.in, tc.exp, s)
+		}
+	}
+}
